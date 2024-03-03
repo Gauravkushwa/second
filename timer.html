@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .main{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background-color: aliceblue;
+        margin-top: 20%;
+    }
+    h1{
+        font-size: 50px;
+        font-weight: 1000;
+    }
+    .buttons{
+        padding: 20px;
+        flex-direction: row;
+        display: flex;
+        justify-content: center;
+    }
+    button{
+        height: 30px;
+        width: 75px;
+        margin: 10px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+    .pause{
+        background-color: blue;
+        color: white;
+    }
+    .start{
+        color: white;
+        background-color: green;
+    }
+    .restart{
+        background-color: red;
+        color: white;
+    }
+    span{
+        font-size: 75px;
+    }
+</style>    
+</head>
+<body>
+   <div class="main">
+    <h1 class="display"> 00 :<span> 00</span> : 00</h1>
+   </div> 
+   <div class="buttons">
+    <button class="pause">Pause</button>
+    <button class="start">Start</button>
+    <button class="restart">Restart</button>
+   </div>
+</body>
+</html>
+<script>
+    let display = document.querySelector('.display');
+    let start = document.querySelector('.start');
+    let pause = document.querySelector('.pause');
+    let restart = document.querySelector('.restart');
+    let sec = 0;
+    let min = 0;
+    let hourse = 0;
+    let timer = null;
+
+    start.addEventListener('click',function()
+    {
+        if(timer !== null){
+            clearInterval(timer)
+        }
+       timer =  setInterval(timeStart, 1000)
+    })
+    pause.addEventListener('click',function(){
+         clearInterval(timer);
+        
+    });
+    restart.addEventListener('click',function(){
+        clearInterval(timer)
+        display.innerHTML = `00 : 00 : 00`
+        sec = min = hourse = 0;
+    })
+    function timeStart(){
+        sec++
+            if(sec == 60){
+                min++
+                sec = 0;
+                if(min == 60){
+                    hourse ++
+                    min = 0;
+                }
+            }
+        
+        let mins = min < 10 ? `0${min}` : min;
+        let secs = sec < 10 ? `0${sec}` : sec;
+        let hourses = hourse < 10 ? `0${hourse}` : hourse;
+
+
+        display.innerHTML = `${mins} : ${secs} : ${hourses}`;
+    }
+</script>
